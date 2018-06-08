@@ -8,7 +8,7 @@ var badApple = {
 	speed: 32,
 	State: 0,
 	isPlay: false,
-	tick:false,
+	tick: false,
 	out: function() {
 		var cont = 0
 		var arr = []
@@ -59,7 +59,7 @@ var badApple = {
 	loading: function() {
 		badApple.loadout = byid("loadtick");
 		getURL("dat/" + badApple.cont + ".json", function(s) {
-			if(s == null) {
+			if(s === null) {
 				badApple.loadout.innerText = "加载完成" + badApple.fps.length
 				badApple.State = 2;
 			} else {
@@ -89,7 +89,7 @@ var badApple = {
 		badApple.test = byid("test");
 		badApple.playtick = byid("playtick");
 		badApple.viev = byid("outSvg");
-		if(badApple.isPlay&&badApple.tick) {
+		if(badApple.isPlay && badApple.tick) {
 			badApple.paus();
 		} else if(badApple.State < 1) {
 			badApple.tick = false;
@@ -161,9 +161,16 @@ var badApple = {
 					t = 0
 					setTimeout(badApple.playing, 32)
 				}
-				badApple.test.innerText = "   声画差距" + t
+				badApple.test.innerText = "   声画延迟" + t
 			}
 		}
 	}
 
 };
+//绑定按键事件
+document.onkeydown = function(event) {
+	var e = event || window.event || arguments.callee.caller.arguments[0];
+	if(e.keyCode == 32) {
+		badApple.play();
+	}
+}

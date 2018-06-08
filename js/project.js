@@ -288,8 +288,9 @@ function getURL(url, fun, bool) {
 		if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			//logout(xmlhttp.responseText);
 			fun(xmlhttp.responseText);
-		} else {
-			fun(null, xmlhttp.status, xmlhttp.readyState);
+		} else if(xmlhttp.readyState == 4 && xmlhttp.status != 200){
+			fun(null, xmlhttp.status);
+			console.log(xmlhttp)
 		}
 	}
 	xmlhttp.open("GET", url, bool);
