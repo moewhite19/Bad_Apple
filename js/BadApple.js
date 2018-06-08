@@ -123,8 +123,7 @@ var badApple = {
 			if(gen == undefined) {
 				if(badApple.State == 2) {
 					console.log("播放完成");
-					badApple.isPlay = false;
-					badApple.tick = false;
+					badApple.stop();
 				} else {
 					badApple.tick = false;
 					player.pause();
