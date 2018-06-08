@@ -290,7 +290,6 @@ function getURL(url, fun, bool) {
 			fun(xmlhttp.responseText);
 		} else if(xmlhttp.readyState == 4 && xmlhttp.status != 200){
 			fun(null, xmlhttp.status);
-			console.log(xmlhttp)
 		}
 	}
 	xmlhttp.open("GET", url, bool);
