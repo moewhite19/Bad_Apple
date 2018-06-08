@@ -70,7 +70,7 @@ var badApple = {
 				if(badApple.isPlay && !badApple.tick) {
 					badApple.play();
 					badApple.tick = true;
-					console.log("块加载完成 继续播放")
+					console.log("块加载完成并继续播放")
 				}
 				badApple.cont++;
 				badApple.loadout.innerText = "已加载" + badApple.fps.length
@@ -160,7 +160,7 @@ var badApple = {
 					t = 0
 					setTimeout(badApple.playing, 32)
 				}
-				badApple.test.innerText = "   声画延迟" + t
+				badApple.test.innerText = "声画延迟" + t
 			}
 		}
 	}
