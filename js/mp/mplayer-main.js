@@ -23,35 +23,35 @@ var player = new MPlayer({
 	defaultVolume: 80,
 	// 歌词替代标题
 	outLrc: true
-}, function() {
+}, function () {
 	// 绑定事件
-	this.on('afterInit', function() {
+	this.on('afterInit', function () {
 		console.log('播放器初始化完成，正在准备播放');
-	}).on('beforePlay', function() {
+	}).on('beforePlay', function () {
 		var $this = this;
 		var song = $this.getCurrentSong(true);
 		var songName = song.name + ' - ' + song.singer;
 		console.log('即将播放' + songName + '，return false;可以取消播放');
 		loadlrc(this.getCurrentList, this.getCurrentSong);
-	}).on('timeUpdate', function() {
+	}).on('timeUpdate', function () {
 		var $this = this;
 		var lrc = $this.getLrc();
 		//console.log('当前歌词：' + lrc);
 		//logout(lrc);
-		if($this.settings.outLrc && !$this.audio.prop('paused')) {
+		if ($this.settings.outLrc && !$this.audio.prop('paused')) {
 			document.title = lrc == undefined ? detitle : lrc;
 		} else {
 			document.title = detitle;
 		}
-	}).on('end', function() {
+	}).on('end', function () {
 		var $this = this;
 		var song = $this.getCurrentSong(true);
 		var songName = song.name + ' - ' + song.singer;
 		console.log(songName + '播放完毕，return false;可以取消播放下一曲');
-	}).on('mute', function() {
+	}).on('mute', function () {
 		var status = this.getIsMuted() ? '已静音' : '未静音';
 		console.log('当前静音状态：' + status);
-	}).on('changeMode', function() {
+	}).on('changeMode', function () {
 		var $this = this;
 
 		var mode = modeText[$this.getPlayMode()];
@@ -67,12 +67,12 @@ function setEffects(player) {
 	// 滑块
 	player.dom.volRange.nstSlider({
 		"left_grip_selector": ".mp-vol-circle",
-		"value_changed_callback": function(cause, value) {
+		"value_changed_callback": function (cause, value) {
 			player.dom.container.find('.mp-vol-current').width(value + '%');
 			player.dom.volRange.trigger('change', [value]);
 		}
 	});
-	player.dom.container.find('.mp-mode').click(function() {
+	player.dom.container.find('.mp-mode').click(function () {
 		var dom = $(this);
 		var mode = player.getPlayMode();
 		dom.removeClass('mp-mode-' + mode);
@@ -80,16 +80,16 @@ function setEffects(player) {
 		player.changePlayMode(mode);
 		dom.addClass('mp-mode-' + mode);
 	});
-	player.dom.container.find('.mp-list-toggle').click(function() {
+	player.dom.container.find('.mp-list-toggle').click(function () {
 		player.dom.container.find('.mp-list-box').toggleClass('mp-list-show');
 	});
-	player.dom.container.find('.mp-lrc-toggle').click(function() {
+	player.dom.container.find('.mp-lrc-toggle').click(function () {
 		player.dom.container.find('.mp-lrc-box').toggleClass('mp-lrc-show');
 	});
-	player.dom.container.find('.mp-toggle').click(function() {
+	player.dom.container.find('.mp-toggle').click(function () {
 		player.dom.container.toggleClass('mp-show');
 	});
-	player.dom.container.find('.mp-lrc-close').click(function() {
+	player.dom.container.find('.mp-lrc-close').click(function () {
 		player.dom.container.find('.mp-lrc-box').removeClass('mp-lrc-show');
 	});
 }
@@ -97,8 +97,8 @@ function setEffects(player) {
 function loadlrc() {
 	var list = player.getCurrentList();
 	var song = player.getCurrentSong();
-	if(player.list[list][song].slrc != undefined) {
-		getURL(player.list[list][song].slrc, (function(str) {
+	if (player.list[list][song].slrc != undefined) {
+		getURL(player.list[list][song].slrc, (function (str) {
 			var list = player.getCurrentList();
 			var song = player.getCurrentSong();
 			lrc = player._parseLrc(str)

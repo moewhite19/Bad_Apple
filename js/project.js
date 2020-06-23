@@ -4,6 +4,7 @@ var debug = false; //调试模式
 var openTime = 0;
 var startTime;
 var flags = {};
+
 //解析XML
 function loadXml(str) {
 	if(str == null) {
@@ -20,15 +21,7 @@ function loadXml(str) {
 	return doc;
 }
 
-function test(b) {
-	var a
-	eval("a=b");
-	if(a) {
-		b = false;
-	}
-	if(!a) b = true;
-}
-
+//模拟点击按钮
 function fake_click(obj) {
 	var ev = document.createEvent("MouseEvents");
 	ev.initMouseEvent(
@@ -37,6 +30,7 @@ function fake_click(obj) {
 	obj.dispatchEvent(ev);
 }
 
+//下载
 function download(name, data) {
 	var urlObject = window.URL || window.webkitURL || window;
 
@@ -47,6 +41,7 @@ function download(name, data) {
 	save_link.download = name;
 	fake_click(save_link);
 }
+
 //数字长度
 function pad(num, n) {
 	var len = num.toString().length;
@@ -56,16 +51,6 @@ function pad(num, n) {
 	return num;
 }
 
-//运行速度测试fun函数，cont次数（默认500次）
-function funTest(fun, cont, data, data2, data3) {
-	if(cont == undefined) cont = 500;
-	console.log("开始测试  " + console.dir(fun) + " 次数 " + cont);
-	var time = new timer;
-	for(var i = 0; i < cont; i++) {
-		fun(data, data2, data3);
-	}
-	console.log("耗时" + time.stop() + "毫秒 运行次数:" + cont);
-}
 /*计时函数
  * 用法
  * var time=new timer
