@@ -7,10 +7,10 @@ var badApple = {
 	colr: "#FFFFFF", //颜色
 	State: 0,  //加载状态 
 
-	isPlay: false, 
+	isPlay: false,
 	tick: false,
 
-	
+
 	// out: function () {
 	// 	var cont = 0
 	// 	var arr = []
@@ -99,9 +99,11 @@ var badApple = {
 			badApple.isPlay = true;
 			badApple.load();
 			console.log("开始缓存并播放")
+			badApple.test.innerText = "正在准备播放"
 		} else {
 			badApple.tick = true;
 			badApple.isPlay = true;
+			badApple.row--;
 			player.play();
 			badApple.playing();
 			console.log("继续播放")
@@ -123,25 +125,29 @@ var badApple = {
 		if (badApple.tick) {
 			var i = Math.round(player.audio.prop('currentTime') / 0.033);
 			if (i === badApple.row) {
-				setTimeout(badApple.playing, 5);
+				setTimeout(badApple.playing, 1);
 				return;
 			}
 			badApple.row = i;
+
 			var arr = [];
 			var gen = badApple.fps[i];
 			if (gen == undefined) {
 				if (badApple.State == 2) {
 					console.log("播放完成");
+					badApple.test.innerText = "播放完成";
 					badApple.stop();
 					return;
 				} else {
 					badApple.tick = false;
-					player.pause();
-					console.log("缓存中")
+					console.log("正在缓冲");
+					player.paus();
+					badApple.test.innerText = "正在加载画面...";
+					return;
 				}
 			} else {
 				badApple.playtick.innerText = "播放进度:" + badApple.row;
-				badApple.test.innerText = gen.length;
+				badApple.test.innerText = "画面层数:" + gen.length;
 				for (tmp in gen) {
 					arr.push('<path fill=' + badApple.colr + ' opacity=\"1.00\" d=\"' + gen[tmp] + '\"></path>');
 				}
