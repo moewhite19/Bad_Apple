@@ -123,11 +123,21 @@ var badApple = {
 	},
 	playing: function () {
 		if (badApple.tick) {
-			var i = Math.round(player.audio.prop('currentTime') / 0.033);
+			var i = Math.round(player.audio.prop('currentTime') / 0.0333);
 			if (i === badApple.row) {
-				setTimeout(badApple.playing, 1);
+				setTimeout(badApple.playing, 3);
 				return;
 			}
+
+			//解决漏帧的问题
+			var jump = i - badApple.row;
+			if (jump === 2) {
+				// if (jump > 2) {
+				// 	console.log("已跳过帧数" + jump);
+				// }
+				badApple.row--;
+			}
+
 			badApple.row = i;
 
 			var arr = [];
@@ -154,7 +164,7 @@ var badApple = {
 				badApple.viev.innerHTML = arr.join("\n");
 				arr = [];
 			}
-			setTimeout(badApple.playing, 10);
+			setTimeout(badApple.playing, 6);
 		}
 	}
 };
