@@ -141,7 +141,7 @@ var badApple = {
 				} else {
 					badApple.tick = false;
 					console.log("正在缓冲");
-					player.paus();
+					player.pause();
 					badApple.test.innerText = "正在加载画面...";
 					return;
 				}
